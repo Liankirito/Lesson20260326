@@ -3,7 +3,7 @@
     <head>
         <title>HTML Tutorial</title>
     </head>
-    <body onload="init()">
+    <body onload="run()">
 
         <h1>This is a heading</h1>
         <h2>This is a subheading</h2>
@@ -30,7 +30,7 @@
         </div>
 
         <div id="title">
-            <h1 onMouseOver="showInformation()">為你幫幫忙。</h1>
+            <h1 onMouseOver="showInformation()" onMouseOut="hideInformation()">為你幫幫忙。</h1>
             <div id="information"></div>
         </div>
 
@@ -51,6 +51,18 @@
         <button class="important" onclick="show()">聯絡我們</button>
         <!-- <div id="Display">這段文字可以被隱藏</div> -->
 
+        <center>
+            <button  class="important" onclick="ymd()" value="何年何月何日">何年何月何日</button><br>
+            <button  class="important" onclick="hms()" value="何時何分何秒">何時何分何秒</button><br>
+            <button  class="important" onclick="week()" value="星期幾">星期幾</button>
+        </center>
+
+        <form name="fmes">
+            ☆ 使文字在表單上流動</p>
+            <input type=text name="mess" size="30">
+        </form>
+
+
         <div id="Display" style="display: none;">
             <h2>表單範例</h2>
             <form>
@@ -62,7 +74,12 @@
                 <input type="email" id="email" placeholder="請輸入電子郵件"><br>
                 <label>電話：</label>
                 <input type="tel" id="phone" placeholder="請輸入電話號碼"><br>
-                <button type="button" onclick="showName()">送出</button>
+                <select id="gender">
+                    <option value="">請選擇性別</option>
+                    <option value="male">男</option>
+                    <option value="female">女</option>
+                </select><br>
+                <button class="important" onclick="showName()">送出</button>
             </form>
             <div id="result"></div>
         </div>
@@ -158,6 +175,45 @@
     function showInformation() {
         document.getElementById("information").textContent = "請聯絡我們的客服人員！";
     }
+
+    function hideInformation() {
+        document.getElementById("information").textContent = "";
+    }
+
+
+    var nowtime = new Date();
+
+    function ymd(){
+		alert(nowtime.getFullYear()+"/"+(nowtime.getMonth()+1)
+                   +"/"+nowtime.getDate());
+	}
+
+	function hms(){
+		alert(nowtime.getHours()+":"+
+                    nowtime.getMinutes()+":"+
+                    nowtime.getSeconds());
+    }
+
+	function week(){
+		alert("星期"+ nowtime.getDay());
+    }
+
+    var tc = 0;
+    var fm1 = "                               ";
+    var fm2 = "訊息將顯示於此. . . . .."
+    var fm = fm1 + fm2;
+
+    function run(){
+        if(tc < 1000){
+            tc++;
+            document.fmes.mess.value = fm;
+            fm = fm.substring(2,fm.length)+fm.substring(0,2);
+            setTimeout("run()",300);
+        }else{
+            document.fmes.mess.value ="";
+        }        
+    }
+
 </script>
 
 <style>
